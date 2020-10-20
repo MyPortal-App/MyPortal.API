@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MyPortal.Entity\MyPortal.Entity.csproj" />
     <ProjectReference Include="..\MyPortal.Persistance\MyPortal.Persistance.csproj" />
     <ProjectReference Include="..\MyPortal.Services\MyPortal.Services.csproj" />
