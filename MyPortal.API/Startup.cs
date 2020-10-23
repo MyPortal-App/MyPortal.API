@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+using MyPortal.DatabaseFactory;
+using MyPortal.Services;
+
 namespace MyPortal.API
 {
     public class Startup
@@ -27,6 +30,14 @@ namespace MyPortal.API
         {
             services.AddControllers();
             services.AddSwaggerGen();
+
+            #region [Connections]
+
+            services.AddTransient<IConnectionFactory, ConnectionFactory>();
+
+            #endregion
+
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

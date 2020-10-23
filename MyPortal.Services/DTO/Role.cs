@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MyPortal.Services.DTO
+﻿namespace MyPortal.Services.DTO
 {
     public class Role
     {
