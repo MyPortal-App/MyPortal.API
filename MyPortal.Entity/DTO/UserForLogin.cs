@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace MyPortal.Entity.Dto_s
+namespace MyPortal.Entity.DTO
 {
-    public class UserForLoginDto
+    public class UserForLogin
     {
         [Required]
         public string Username { get; set; }

@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyPortal.Entity.Dto_s
+namespace MyPortal.Entity.DTO
 {
-    public class UserProfileDto
+    public class UserProfile
     {
         public string  Token { get; set; }
-        public UserDto User  { get; set; }
+        public User User  { get; set; }
 
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyPortal.Entity.Dto_s
+namespace MyPortal.Entity.DTO
 {
-   public class UserDto
+   public class User
    {
         public string Username { get; set; }
         public string Id { get; set; }

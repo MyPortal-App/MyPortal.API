@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyPortal.Entity.DbEntities;
-using MyPortal.Entity.Dto_s;
+using MyPortal.Entity.DTO;
 using MyPortal.Persistance;
 using MyPortal.Services.Interfaces;
 using System;
@@ -17,7 +17,7 @@ namespace MyPortal.Services.Repository
         {
             _db = db;
         }
-        public async Task<User> Login(string username, string password)
+        public async Task<Entity.DbEntities.User> Login(string username, string password)
         {
             var user = await _db.Users.FirstOrDefaultAsync(x => x.Username == username && x.PasswordHash == password);
             if (user == null)

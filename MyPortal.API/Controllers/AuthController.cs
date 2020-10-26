@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MyPortal.API.Mapping;
-using MyPortal.Entity.Dto_s;
+using MyPortal.Entity.DTO;
 using MyPortal.Services.Interfaces;
 
 namespace MyPortal.API.Controllers
@@ -27,7 +27,7 @@ namespace MyPortal.API.Controllers
             _config = config;
         }
         [HttpPost("Login")]
-        public async Task <IActionResult> Login(UserForLoginDto userForLoginDto)
+        public async Task <IActionResult> Login(UserForLogin userForLoginDto)
         {
             var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
             if (userFromRepo == null)
@@ -52,7 +52,7 @@ namespace MyPortal.API.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var result = new JwtSecurityTokenHandler().WriteToken(token);
-            UserProfileDto userProfileDto = await ProfileMapper.ProfileDtoMapper(result, userFromRepo);
+            UserProfile userProfileDto = await ProfileMapper.ProfileDtoMapper(result, userFromRepo);
             return Ok(userProfileDto);
         }
     }

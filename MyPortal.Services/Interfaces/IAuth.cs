@@ -1,5 +1,5 @@
 ﻿using MyPortal.Entity.DbEntities;
-using MyPortal.Entity.Dto_s;
+using MyPortal.Entity.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +9,6 @@ namespace MyPortal.Services.Interfaces
 {
     public interface IAuth
     {
-        Task<User> Login(string username, string password);
+        Task<Entity.DbEntities.User> Login(string username, string password);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using MyPortal.Entity.DbEntities;
-using MyPortal.Entity.Dto_s;
+using MyPortal.Entity.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace MyPortal.API.Mapping
 {
     public class ProfileMapper
     {
-        public static async Task<UserProfileDto> ProfileDtoMapper(string token, User user)
+        public static async Task<UserProfile> ProfileDtoMapper(string token, Entity.DbEntities.User user)
         {
             string Id = string.Empty;
             string Username = string.Empty;
@@ -189,8 +189,8 @@ namespace MyPortal.API.Mapping
                Token = token;
             }
 
-            UserProfileDto userProfileDto = new UserProfileDto();
-            userProfileDto.User = new UserDto();
+            UserProfile userProfileDto = new UserProfile();
+            userProfileDto.User = new Entity.DTO.User();
             userProfileDto.Token = Token;
             userProfileDto.User.Id = Id;
             userProfileDto.User.Username = Username;
