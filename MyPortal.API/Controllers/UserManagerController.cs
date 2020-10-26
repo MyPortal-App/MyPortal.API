@@ -9,7 +9,8 @@ using MyPortal.Entity.DTO;
 using MyPortal.Services.Repository;
 
 namespace MyPortal.API.Controllers
-{    
+{
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserManagerController : ControllerBase
@@ -23,6 +24,7 @@ namespace MyPortal.API.Controllers
             UserManager = userManager;
         }
 
+        //[AllowAnonymous]
         [Route("GetUserProfiles")]
         [HttpGet]
         public async Task<IActionResult> GetUserProfiles()
@@ -30,6 +32,16 @@ namespace MyPortal.API.Controllers
             var data = await UserManager.GetUserProfileListAsync();
             
             return Ok(data);
-        }        
+        }
+
+        [AllowAnonymous]
+        [Route("GetUserProfileById/{id}")]
+        [HttpGet]
+        public async Task<IActionResult> GetUserProfileById(int id)
+        {
+            var data = await UserManager.GetUserProfileByIdByAsync(id);
+
+            return Ok(data);
+        }
     }
 }
