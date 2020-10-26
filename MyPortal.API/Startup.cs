@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MyPortal.API.Helper;
+using MyPortal.DatabaseFactory;
 using MyPortal.Persistance;
 using MyPortal.Services.Interfaces;
 using MyPortal.Services.Repository;
@@ -40,6 +41,11 @@ namespace MyPortal.API
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+
+
+            services.AddTransient<IConnectionFactory, ConnectionFactory>();
+            services.AddTransient<IUserManager, UserManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,7 +93,7 @@ namespace MyPortal.API
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

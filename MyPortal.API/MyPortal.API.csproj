@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyPortal.DatabaseFactory\MyPortal.DatabaseFactory.csproj" />
     <ProjectReference Include="..\MyPortal.Entity\MyPortal.Entity.csproj" />
     <ProjectReference Include="..\MyPortal.Persistance\MyPortal.Persistance.csproj" />
     <ProjectReference Include="..\MyPortal.Services\MyPortal.Services.csproj" />
