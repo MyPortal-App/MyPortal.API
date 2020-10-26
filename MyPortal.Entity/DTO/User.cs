@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyPortal.Entity.DTO
+namespace MyPortal.Entity.Dto_s
 {
    public class User
    {

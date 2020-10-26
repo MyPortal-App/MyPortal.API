@@ -1,5 +1,5 @@
 ﻿using MyPortal.Entity.DbEntities;
-using MyPortal.Entity.DTO;
+using MyPortal.Entity.Dto_s;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -190,7 +190,7 @@ namespace MyPortal.API.Mapping
             }
 
             UserProfile userProfileDto = new UserProfile();
-            userProfileDto.User = new Entity.DTO.User();
+            userProfileDto.User = new Entity.Dto_s.User();
             userProfileDto.Token = Token;
             userProfileDto.User.Id = Id;
             userProfileDto.User.Username = Username;

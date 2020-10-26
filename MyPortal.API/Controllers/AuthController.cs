@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MyPortal.API.Mapping;
-using MyPortal.Entity.DTO;
+using MyPortal.Entity.Dto_s;
 using MyPortal.Services.Interfaces;
 
 namespace MyPortal.API.Controllers

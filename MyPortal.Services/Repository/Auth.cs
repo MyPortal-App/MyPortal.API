@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyPortal.Entity.DbEntities;
-using MyPortal.Entity.DTO;
+using MyPortal.Entity.Dto_s;
 using MyPortal.Persistance;
 using MyPortal.Services.Interfaces;
 using System;

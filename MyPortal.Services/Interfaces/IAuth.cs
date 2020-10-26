@@ -1,5 +1,5 @@
 ﻿using MyPortal.Entity.DbEntities;
-using MyPortal.Entity.DTO;
+using MyPortal.Entity.Dto_s;
 using System;
 using System.Collections.Generic;
 using System.Text;
