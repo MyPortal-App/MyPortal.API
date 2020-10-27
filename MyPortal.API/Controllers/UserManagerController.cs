@@ -14,27 +14,25 @@ namespace MyPortal.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class UserManagerController : ControllerBase
-    {        
-        private IConnectionFactory ConnectionFactory { get; }
+    {   
         private readonly IUserManager UserManager;
 
-        public UserManagerController(IConnectionFactory connectionFactory, IUserManager userManager)
-        {
-            ConnectionFactory = connectionFactory;
+        public UserManagerController(IUserManager userManager)
+        {            
             UserManager = userManager;
         }
-
-        //[AllowAnonymous]
-        [Route("GetUserProfiles")]
+                
+        [Authorize]
+        [Route("GetUserProfile")]
         [HttpGet]
-        public async Task<IActionResult> GetUserProfiles()
+        public async Task<IActionResult> GetUserProfile()
         {
             var data = await UserManager.GetUserProfileListAsync();
             
             return Ok(data);
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [Route("GetUserProfileById/{id}")]
         [HttpGet]
         public async Task<IActionResult> GetUserProfileById(int id)
