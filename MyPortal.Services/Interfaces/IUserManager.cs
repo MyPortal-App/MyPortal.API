@@ -10,9 +10,10 @@ namespace MyPortal.Services.Repository
     {        
         List<UserProfile> GetUserProfileList();
         Task<List<UserProfile>> GetUserProfileListAsync();
-
         List<UserProfile> GetUserProfileById(int id);
         Task<List<UserProfile>> GetUserProfileByIdAsync(int id);
+        int SaveUserProfile(User user);
+        Task<int> SaveUserProfileAsync(User user);
 
         List<User> GetUserById(int id);
         Task<List<User>> GetUserByIdAsync(int id);

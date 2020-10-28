@@ -146,7 +146,65 @@ namespace MyPortal.Services.Repository
 
             return await Task.FromResult(userProfiles);
         }
-                
+
+
+        public int SaveUserProfile(User user) => SaveUserProfileAsync(user).Result;
+        public async Task<int> SaveUserProfileAsync(User user)
+        {            
+            int _userId = 0;      
+            int i = 0;
+            bool isNumber = int.TryParse(user.Id, out i);
+
+            if (isNumber)
+                _userId = Convert.ToInt16(user.Id);
+
+            DynamicParameters dp = new DynamicParameters();
+            using (IDbConnection connection = DbConnection)
+            {
+                connection.Open();
+
+                dp.Add("@Age", user.Age);
+                dp.Add("@AppointmentDate", user.AppointmentDate);
+                dp.Add("@ChiefDirectorate", user.ChiefDirectorate);
+                dp.Add("@ContactCell", user.ContactCell);
+                dp.Add("@ContactNumberOffice", user.ContactNumberOffice);
+                dp.Add("@Designation", user.Designation);
+                dp.Add("@Directorate", user.Directorate);
+                dp.Add("@Firstname", user.Firstname);
+                dp.Add("@Highestqualification", user.Highestqualification);
+                dp.Add("@HomeAddress", user.HomeAddress);
+                dp.Add("@InductionStatus", user.InductionStatus);
+                dp.Add("@JobTitle", user.JobTitle);
+                dp.Add("@LastName", user.LastName);
+                dp.Add("@Manager", user.Manager);
+                dp.Add("@Maritalstatus", user.Maritalstatus);
+                dp.Add("@NextofKinName", user.NextofKinName);
+                dp.Add("@NextofKinRelation", user.NextofKinRelation);
+                dp.Add("@NextofKinSurname", user.NextofKinSurname);
+                dp.Add("@OfficeLocation", user.OfficeLocation);                
+                dp.Add("@ProbationPeriodstatus", user.ProbationPeriodstatus);
+                dp.Add("@Race", user.Race);
+                dp.Add("@SalaryLevel", Convert.ToInt16(user.SalaryLevel));
+                dp.Add("@Sex", user.Sex);
+                dp.Add("@SpouseMaidenName", user.SpouseMaidenName);
+                dp.Add("@SpouseName", user.SpouseName);
+                dp.Add("@SubDirectorate", user.SubDirectorate);
+                dp.Add("@Username", user.Username);
+
+                if (_userId > 0)
+                {
+                    dp.Add("@Id", user.Id);
+                    await connection.ExecuteAsync("sp_UpdateUser", dp, commandType: CommandType.StoredProcedure);
+
+                    return await Task.FromResult(_userId);
+                }
+                else
+                {
+                    return await connection.ExecuteAsync("sp_AddNewUser", dp, commandType: CommandType.StoredProcedure);
+                }
+            }
+        }
+
         public List<User> GetUserById(int id) => GetUserByIdAsync(id).Result;
         public async Task<List<User>> GetUserByIdAsync(int id)
         {            
