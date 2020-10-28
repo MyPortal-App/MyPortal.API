@@ -64,7 +64,7 @@ namespace MyPortal.API.Controllers
             return Ok(user);
         }
 
-        //[Authorize]
+        [Authorize]
         [Route("SaveUserDetails")]
         [HttpPost]
         public async Task<IActionResult> SaveUserDetails(Entity.DbEntities.User user)
