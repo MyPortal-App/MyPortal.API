@@ -16,7 +16,7 @@ namespace MyPortal.Services.Repository
 
         List<User> GetUserById(int id);
         Task<List<User>> GetUserByIdAsync(int id);
-        int SaveUser(User user);
-        Task<int> SaveUserAsync(User user);
+        int SaveUser(Entity.DbEntities.User user);
+        Task<int> SaveUserAsync(Entity.DbEntities.User user);
     }
 }

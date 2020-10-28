@@ -163,18 +163,18 @@ namespace MyPortal.Services.Repository
             return await Task.FromResult(users);
         }
 
-        public int SaveUser(User user) => SaveUserAsync(user).Result;
-        public async Task<int> SaveUserAsync(User user)
+        public int SaveUser(Entity.DbEntities.User user) => SaveUserAsync(user).Result;
+        public async Task<int> SaveUserAsync(Entity.DbEntities.User user)
         {
-            //User _user = new User();
-            int _userId = 0;
-            //int _userId = Convert.ToInt32(user.Id);
-            int i = 0;
+            ////User _user = new User();
+            //int _userId = 0;
+            ////int _userId = Convert.ToInt32(user.Id);
+            //int i = 0;
 
-            bool isNumber = int.TryParse(user.Id, out i);
+            //bool isNumber = int.TryParse(user.Id, out i);
 
-            if (isNumber)
-                _userId = Convert.ToInt16(user.Id);
+            //if (isNumber)
+            //    _userId = Convert.ToInt16(user.Id);
 
             DynamicParameters dp = new DynamicParameters();
             using (IDbConnection connection = DbConnection)
@@ -200,9 +200,9 @@ namespace MyPortal.Services.Repository
                 dp.Add("@NextofKinRelation", user.NextofKinRelation);
                 dp.Add("@NextofKinSurname", user.NextofKinSurname);
                 dp.Add("@OfficeLocation", user.OfficeLocation);
-                dp.Add("@PasswordHash", "P@ssw0rd");
-                dp.Add("@PasswordSalt", "P@ssw0rd");
-                dp.Add("@Password", "P@ssw0rd");
+                dp.Add("@PasswordHash", user.PasswordHash);
+                dp.Add("@PasswordSalt", user.PasswordSalt);
+                dp.Add("@Password", user.Password);
                 dp.Add("@ProbationPeriodstatus", user.ProbationPeriodstatus);
                 dp.Add("@Race", user.Race);
                 dp.Add("@SalaryLevel", Convert.ToInt16(user.SalaryLevel));
@@ -212,12 +212,12 @@ namespace MyPortal.Services.Repository
                 dp.Add("@SubDirectorate", user.SubDirectorate);
                 dp.Add("@Username", user.Username);
 
-                if (_userId > 0)
+                if (user.Id > 0)
                 {
-                    dp.Add("@Id", _userId);
+                    dp.Add("@Id", user.Id);
                     await connection.ExecuteAsync("sp_UpdateUser", dp, commandType: CommandType.StoredProcedure);
                     
-                    return await Task.FromResult(_userId);
+                    return await Task.FromResult(user.Id);
                 }
                 else
                 {

@@ -67,14 +67,14 @@ namespace MyPortal.API.Controllers
         [Authorize]
         [Route("SaveUserDetails")]
         [HttpPost]
-        public async Task<IActionResult> SaveUserDetails(User user)
+        public async Task<IActionResult> SaveUserDetails(Entity.DbEntities.User user)
         {
             int userId = 0;
             try
             {
                 userId = await UserManager.SaveUserAsync(user);
                 ///Todo: Logging
-                return await Task.FromResult(Ok());
+                return await Task.FromResult(Ok(userId));
             }
             catch (Exception ex)
             {
