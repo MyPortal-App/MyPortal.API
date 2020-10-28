@@ -7,6 +7,7 @@ using MyPortal.Entity.DTO;
 using System.Data.SqlClient;
 using Dapper;
 using System.Linq;
+using System;
 
 namespace MyPortal.Services.Repository
 {
@@ -25,8 +26,8 @@ namespace MyPortal.Services.Repository
             Configuration = configuration;
         }
 
-        public IList<UserProfile> GetUserProfileList() => GetUserProfileListAsync().Result;
-        public async Task<IList<UserProfile>> GetUserProfileListAsync()        
+        public List<UserProfile> GetUserProfileList() => GetUserProfileListAsync().Result;
+        public async Task<List<UserProfile>> GetUserProfileListAsync()        
         {
 
             List<UserProfile> userProfiles1 = new List<UserProfile>();
@@ -85,8 +86,8 @@ namespace MyPortal.Services.Repository
             return await Task.FromResult(userProfiles);
         }
 
-        public IList<UserProfile> GetUserProfileById(int id) => GetUserProfileByIdByAsync(id).Result;
-        public async Task<IList<UserProfile>> GetUserProfileByIdByAsync(int id)
+        public List<UserProfile> GetUserProfileById(int id) => GetUserProfileByIdAsync(id).Result;
+        public async Task<List<UserProfile>> GetUserProfileByIdAsync(int id)
         {
             List<UserProfile> userProfiles1 = new List<UserProfile>();
             List<User> users = new List<User>();
@@ -144,6 +145,85 @@ namespace MyPortal.Services.Repository
             }
 
             return await Task.FromResult(userProfiles);
+        }
+                
+        public List<User> GetUserById(int id) => GetUserByIdAsync(id).Result;
+        public async Task<List<User>> GetUserByIdAsync(int id)
+        {            
+            List<User> users = new List<User>();
+            DynamicParameters param = new DynamicParameters();
+            param.Add("@id", id);
+
+            using (IDbConnection connection = DbConnection)
+            {
+                connection.Open();
+                users.AddRange(connection.Query<User>("[dbo].[sp_GetUserBy_Id]", param, commandType: CommandType.StoredProcedure).ToList());
+            }                        
+                
+            return await Task.FromResult(users);
+        }
+
+        public int SaveUser(User user) => SaveUserAsync(user).Result;
+        public async Task<int> SaveUserAsync(User user)
+        {
+            //User _user = new User();
+            int _userId = 0;
+            //int _userId = Convert.ToInt32(user.Id);
+            int i = 0;
+
+            bool isNumber = int.TryParse(user.Id, out i);
+
+            if (isNumber)
+                _userId = Convert.ToInt16(user.Id);
+
+            DynamicParameters dp = new DynamicParameters();
+            using (IDbConnection connection = DbConnection)
+            {
+                connection.Open();
+
+                dp.Add("@Age", user.Age);
+                dp.Add("@AppointmentDate", user.AppointmentDate);
+                dp.Add("@ChiefDirectorate", user.ChiefDirectorate);
+                dp.Add("@ContactCell", user.ContactCell);
+                dp.Add("@ContactNumberOffice", user.ContactNumberOffice);
+                dp.Add("@Designation", user.Designation);
+                dp.Add("@Directorate", user.Directorate);
+                dp.Add("@Firstname", user.Firstname);
+                dp.Add("@Highestqualification", user.Highestqualification);
+                dp.Add("@HomeAddress", user.HomeAddress);
+                dp.Add("@InductionStatus", user.InductionStatus);
+                dp.Add("@JobTitle", user.JobTitle);
+                dp.Add("@LastName", user.LastName);
+                dp.Add("@Manager", user.Manager);
+                dp.Add("@Maritalstatus", user.Maritalstatus);
+                dp.Add("@NextofKinName", user.NextofKinName);
+                dp.Add("@NextofKinRelation", user.NextofKinRelation);
+                dp.Add("@NextofKinSurname", user.NextofKinSurname);
+                dp.Add("@OfficeLocation", user.OfficeLocation);
+                dp.Add("@PasswordHash", "P@ssw0rd");
+                dp.Add("@PasswordSalt", "P@ssw0rd");
+                dp.Add("@Password", "P@ssw0rd");
+                dp.Add("@ProbationPeriodstatus", user.ProbationPeriodstatus);
+                dp.Add("@Race", user.Race);
+                dp.Add("@SalaryLevel", Convert.ToInt16(user.SalaryLevel));
+                dp.Add("@Sex", user.Sex);
+                dp.Add("@SpouseMaidenName", user.SpouseMaidenName);
+                dp.Add("@SpouseName", user.SpouseName);
+                dp.Add("@SubDirectorate", user.SubDirectorate);
+                dp.Add("@Username", user.Username);
+
+                if (_userId > 0)
+                {
+                    dp.Add("@Id", _userId);
+                    await connection.ExecuteAsync("sp_UpdateUser", dp, commandType: CommandType.StoredProcedure);
+                    
+                    return await Task.FromResult(_userId);
+                }
+                else
+                {
+                    return await connection.ExecuteAsync("sp_AddNewUser", dp, commandType: CommandType.StoredProcedure);
+                }
+            }
         }
     }
 }

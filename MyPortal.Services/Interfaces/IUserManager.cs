@@ -8,10 +8,15 @@ namespace MyPortal.Services.Repository
 {
     public interface IUserManager
     {        
-        IList<UserProfile> GetUserProfileList();
-        Task<IList<UserProfile>> GetUserProfileListAsync();
+        List<UserProfile> GetUserProfileList();
+        Task<List<UserProfile>> GetUserProfileListAsync();
 
-        IList<UserProfile> GetUserProfileById(int id);
-        Task<IList<UserProfile>> GetUserProfileByIdByAsync(int id);
+        List<UserProfile> GetUserProfileById(int id);
+        Task<List<UserProfile>> GetUserProfileByIdAsync(int id);
+
+        List<User> GetUserById(int id);
+        Task<List<User>> GetUserByIdAsync(int id);
+        int SaveUser(User user);
+        Task<int> SaveUserAsync(User user);
     }
 }

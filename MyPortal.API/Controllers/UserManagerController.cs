@@ -27,9 +27,11 @@ namespace MyPortal.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUserProfile()
         {
-            var data = await UserManager.GetUserProfileListAsync();
+            List<UserProfile> userProfile = new List<UserProfile>();
+
+            userProfile = await UserManager.GetUserProfileListAsync();
             
-            return Ok(data);
+            return Ok(userProfile);
         }
 
         [Authorize]
@@ -37,9 +39,48 @@ namespace MyPortal.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUserProfileById(int id)
         {
-            var data = await UserManager.GetUserProfileByIdByAsync(id);
+            List<UserProfile> userProfile = new List<UserProfile>();
 
-            return Ok(data);
+            if (id > 0)
+            {
+                userProfile = await UserManager.GetUserProfileByIdAsync(id);
+            }
+
+            return Ok(userProfile);
+        }
+
+        [Authorize]
+        [Route("GetUser/{id}")]
+        [HttpGet]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            List<User> user = new List<User>();
+
+            if (id > 0)
+            {
+                user = await UserManager.GetUserByIdAsync(id);
+            }
+               
+            return Ok(user);
+        }
+
+        [Authorize]
+        [Route("SaveUserDetails")]
+        [HttpPost]
+        public async Task<IActionResult> SaveUserDetails(User user)
+        {
+            int userId = 0;
+            try
+            {
+                userId = await UserManager.SaveUserAsync(user);
+                ///Todo: Logging
+                return await Task.FromResult(Ok());
+            }
+            catch (Exception ex)
+            {
+                //log.Error(ex);
+                return await Task.FromResult(BadRequest(ex));
+            }            
         }
     }
 }
