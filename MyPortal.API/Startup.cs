@@ -56,7 +56,12 @@ namespace MyPortal.API
                         ValidateAudience = false
                     };
                 });
-
+            services.AddCors(c => c.AddPolicy("CorsPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
 
 
             services.AddTransient<IConnectionFactory, ConnectionFactory>();
@@ -105,6 +110,7 @@ namespace MyPortal.API
             }
             app.UseAuthentication();
             app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
 
             app.UseRouting();
 
@@ -114,6 +120,8 @@ namespace MyPortal.API
             {
                 endpoints.MapControllers();
             });
+
+            
         }
     }
 }
