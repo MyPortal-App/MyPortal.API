@@ -23,9 +23,9 @@ namespace MyPortal.API.Controllers
         }
                 
         [Authorize]
-        [Route("GetUserProfile")]
+        [Route("GetUserProfiles")]
         [HttpGet]
-        public async Task<IActionResult> GetUserProfile()
+        public async Task<IActionResult> GetUserProfiles()
         {
             List<UserProfile> userProfile = new List<UserProfile>();
 
