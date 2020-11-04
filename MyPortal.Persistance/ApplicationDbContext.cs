@@ -12,6 +12,8 @@ namespace MyPortal.Persistance
             : base(options) { }
        
         public DbSet<User> Users { get; set; }
-           
+        public DbSet<Logging> Logging { get; set; }
+
+
     }
 }

@@ -22,6 +22,7 @@ using MyPortal.DatabaseFactory;
 using MyPortal.Persistance;
 using MyPortal.Services.Interfaces;
 using MyPortal.Services.Repository;
+using Serilog;
 
 namespace MyPortal.API
 {
@@ -86,6 +87,7 @@ namespace MyPortal.API
                         {
                             context.Response.AddApplicationError(error.Error.Message);
                             await context.Response.WriteAsync(error.Error.Message);
+                            Log.Fatal(error.Error.Message);
                         }
                     });
                 });

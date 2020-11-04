@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using MyPortal.API.Mapping;
 using MyPortal.Entity.DTO;
 using MyPortal.Services.Interfaces;
+using Serilog;
 
 namespace MyPortal.API.Controllers
 {
@@ -30,10 +31,16 @@ namespace MyPortal.API.Controllers
         [HttpPost("Login")]
         public async Task <IActionResult> Login(UserForLogin userForLoginDto)
         {
+            //throw new NullReferenceException("computer says no to null.");
+            Log.Information("Login action invoked");
+            Log.Information("User " + userForLoginDto.Username +  " attempting to login");
             var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
             if (userFromRepo == null)
+            {
+                Log.Information("User " + userForLoginDto.Username + " logged in failed");
                 return Unauthorized();
-
+            }
+            Log.Information("User " + userFromRepo.Firstname + " logged in successful");
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
