@@ -1,4 +1,5 @@
 ﻿
+
 CREATE PROCEDURE [dbo].[sp_GetUsers]
 AS
 	SELECT
@@ -35,3 +36,5 @@ AS
 		,[Password]
 	FROM
 		Users
+	WHERE 
+		Username IS NOT NULL
