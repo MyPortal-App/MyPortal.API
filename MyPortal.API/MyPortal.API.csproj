@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CoreLogger\CoreLogger.csproj" />
     <ProjectReference Include="..\MyPortal.DatabaseFactory\MyPortal.DatabaseFactory.csproj" />
     <ProjectReference Include="..\MyPortal.Entity\MyPortal.Entity.csproj" />
     <ProjectReference Include="..\MyPortal.Persistance\MyPortal.Persistance.csproj" />

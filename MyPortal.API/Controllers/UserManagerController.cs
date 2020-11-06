@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreLogger;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Writers;
 using MyPortal.DatabaseFactory;
 using MyPortal.Entity.DTO;
 using MyPortal.Services.Repository;
+
+using Serilog;
 
 namespace MyPortal.API.Controllers
 {
@@ -22,11 +26,13 @@ namespace MyPortal.API.Controllers
             UserManager = userManager;
         }
                 
-        [Authorize]
+        //[Authorize]
         [Route("GetUserProfiles")]
         [HttpGet]
+        [TrackUsage("MyPortal", "API", "GetUserProfiles")]
         public async Task<IActionResult> GetUserProfiles()
         {
+            Log.Information("GetUserProfiles");
             List<UserProfile> userProfile = new List<UserProfile>();
 
             userProfile = await UserManager.GetUserProfileListAsync();
@@ -37,6 +43,7 @@ namespace MyPortal.API.Controllers
         [Authorize]
         [Route("GetUserProfileById/{id}")]
         [HttpGet]
+        [TrackUsage("MyPortal", "API", "GetUserProfileById")]
         public async Task<IActionResult> GetUserProfileById(int id)
         {
             List<UserProfile> userProfile = new List<UserProfile>();
@@ -52,6 +59,7 @@ namespace MyPortal.API.Controllers
         [Authorize]
         [Route("GetUser/{id}")]
         [HttpGet]
+        [TrackUsage("MyPortal", "API", "GetUserById")]
         public async Task<IActionResult> GetUserById(int id)
         {
             List<User> user = new List<User>();
@@ -64,14 +72,16 @@ namespace MyPortal.API.Controllers
             return Ok(user);
         }
 
-        [Authorize]
+        //[Authorize]
         [Route("SaveUserDetails")]
         [HttpPost]
+        [TrackUsage("MyPortal", "API", "SaveUserDetails")]
         public async Task<IActionResult> SaveUserDetails(Entity.DbEntities.User user)
         {
             int userId = 0;
             try
             {
+                //WebHelper.LogWebDiagnostic("MyPortal", "API", "SaveUserDetails", HttpContext, new Dictionary<string, object> { { "Very", "Important" } });
                 userId = await UserManager.SaveUserAsync(user);
                 ///Todo: Logging
                 return await Task.FromResult(Ok(userId));
