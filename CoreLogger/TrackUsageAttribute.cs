@@ -7,13 +7,13 @@ namespace CoreLogger
     public class TrackUsageAttribute : ActionFilterAttribute
     {
 
-        private string _application, _layer, _activityName;
+        private string _application, _layer, _activityName;        
 
         public TrackUsageAttribute(string application, string layer, string activityName)
         {
             _application = application;
             _layer = layer;
-            _activityName = activityName;
+            _activityName = activityName;            
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

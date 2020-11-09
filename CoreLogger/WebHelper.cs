@@ -11,7 +11,7 @@ using System.Text;
 namespace CoreLogger
 {
     public static class WebHelper
-    {
+    {        
         public static void LogWebUsage(string application, string layer, string activityName, HttpContext context, Dictionary<string, object> additionalInfo = null)
         {
             var details = GetWebFlogDetail(application, layer, activityName, context, additionalInfo);
@@ -21,14 +21,14 @@ namespace CoreLogger
         public static void LogWebDiagnostic(string application, string layer, string message, HttpContext context, Dictionary<string, object> additionalInfo = null)
         {
             var details = GetWebFlogDetail(application, layer, message, context, additionalInfo);
-            Flogger.WriteUsage(details);
+            Flogger.WriteDiagnostic(details);
         }
 
         public static void LogWebError(string application, string layer, Exception ex, HttpContext context)
         {
             var details = GetWebFlogDetail(application, layer, null, context);
             details.Exception = ex;
-            Flogger.WriteUsage(details);
+            Flogger.WriteError(details);
         }
 
         public static FlogDetail GetWebFlogDetail(string application, string layer, string activityName, HttpContext context, Dictionary<string, object> additionalInfo = null)

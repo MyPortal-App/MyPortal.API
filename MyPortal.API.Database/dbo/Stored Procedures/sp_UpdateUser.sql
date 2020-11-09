@@ -66,4 +66,4 @@ AS
 		,NextofKinRelation         = 	@NextofKinRelation          
 		,[Password]                  = 	@Password 
 	WHERE
-		id = @Id
+		Id = @Id

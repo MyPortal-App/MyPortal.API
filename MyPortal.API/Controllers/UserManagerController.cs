@@ -19,7 +19,7 @@ namespace MyPortal.API.Controllers
     [ApiController]
     public class UserManagerController : ControllerBase
     {   
-        private readonly IUserManager UserManager;
+        private readonly IUserManager UserManager;        
 
         public UserManagerController(IUserManager userManager)
         {            
@@ -81,7 +81,7 @@ namespace MyPortal.API.Controllers
             int userId = 0;
             try
             {
-                //WebHelper.LogWebDiagnostic("MyPortal", "API", "SaveUserDetails", HttpContext, new Dictionary<string, object> { { "Very", "Important" } });
+                WebHelper.LogWebDiagnostic("MyPortal", "API", "SaveUserDetails", HttpContext, new Dictionary<string, object> { { "Very", "Important" } });
                 userId = await UserManager.SaveUserAsync(user);
                 ///Todo: Logging
                 return await Task.FromResult(Ok(userId));
