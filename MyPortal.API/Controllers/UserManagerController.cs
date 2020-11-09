@@ -25,8 +25,8 @@ namespace MyPortal.API.Controllers
         {            
             UserManager = userManager;
         }
-                
-        //[Authorize]
+
+        [Authorize]
         [Route("GetUserProfiles")]
         [HttpGet]
         [TrackUsage("MyPortal", "API", "GetUserProfiles")]
@@ -72,7 +72,7 @@ namespace MyPortal.API.Controllers
             return Ok(user);
         }
 
-        //[Authorize]
+        [Authorize]
         [Route("SaveUserDetails")]
         [HttpPost]
         [TrackUsage("MyPortal", "API", "SaveUserDetails")]
