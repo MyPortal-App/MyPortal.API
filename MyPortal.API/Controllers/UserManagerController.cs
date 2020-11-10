@@ -81,14 +81,16 @@ namespace MyPortal.API.Controllers
             int userId = 0;
             try
             {
-                WebHelper.LogWebDiagnostic("MyPortal", "API", "SaveUserDetails", HttpContext, new Dictionary<string, object> { { "Very", "Important" } });
+                
                 userId = await UserManager.SaveUserAsync(user);
+                WebHelper.LogWebDiagnostic("MyPortal", "API", "SaveUserDetails - Successfully", HttpContext, new Dictionary<string, object> { { "Very", "Important" } });
                 ///Todo: Logging
                 return await Task.FromResult(Ok(userId));
             }
             catch (Exception ex)
             {
                 //log.Error(ex);
+                WebHelper.LogWebError("MyPortal", "API",  ex, HttpContext);
                 return await Task.FromResult(BadRequest(ex));
             }            
         }

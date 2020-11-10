@@ -30,7 +30,7 @@ namespace Flogging.Core
         //private static SqlConnection DbConnection { get { return new SqlConnection(Configuration.GetConnectionString("DefaultConnection")); } }
 
         static Flogger()
-        {
+        {            
             var connStr = @"Server=localhost;Database=MyPortal;Trusted_Connection=True;MultipleActiveResultSets=true";
                        
             _usageLogger = new LoggerConfiguration()                
@@ -64,7 +64,7 @@ namespace Flogging.Core
                 new DataColumn{DataType = typeof(string), ColumnName = "Application"},
                 new DataColumn{DataType = typeof(string), ColumnName = "Layer"},
                 new DataColumn{DataType = typeof(string), ColumnName = "Location"},
-                new DataColumn{DataType = typeof(string), ColumnName = "message"},
+                new DataColumn{DataType = typeof(string), ColumnName = "Message"},
                 new DataColumn{DataType = typeof(string), ColumnName = "Hostname"},
                 new DataColumn{DataType = typeof(string), ColumnName = "UserId"},                
                 new DataColumn{DataType = typeof(string), ColumnName = "UserName"},
@@ -122,7 +122,7 @@ namespace Flogging.Core
             //_errorLogger.Write(LogEventLevel.Information, "{@FlogDetail}", infoToLog);
 
             _errorLogger.Write(LogEventLevel.Information,
-           "{Timestamp}{Message}{Layer}{Location}{Product}" +
+           "{Timestamp}{Message}{Layer}{Location}{Application}" +
            "{ElapsedMiliseconds}{Excpetion}{Hostname}" +
            "{UserId}{UserName}{CorrelationId}{AdditionalInfo}",
            infoToLog.Timestamp, infoToLog.Message,
